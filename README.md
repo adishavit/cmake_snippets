@@ -1,2 +1,2 @@
-# cmake_snippets
+# CMake Snippets
 Short copy-pasteable CMake snippets  
