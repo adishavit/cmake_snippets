@@ -1,4 +1,4 @@
-# CMake Snippets
+# CMake Snippets `${✂️}`
 *Short copy-pasteable "Modern" CMake snippets.*  
 
 These snippets are not comprehensive and are not a replacement for documentation.    
