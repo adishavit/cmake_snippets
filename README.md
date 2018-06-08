@@ -74,3 +74,43 @@ set_property(TARGET another_lib PROPERTY FOLDER "libs/3rdParty")
 set_property(TARGET my_app PROPERTY FOLDER "utils")
 ```
 > [`USE_FOLDERS`](https://cmake.org/cmake/help/latest/prop_gbl/USE_FOLDERS.html), [`FOLDER`](https://cmake.org/cmake/help/latest/prop_tgt/FOLDER.html#prop_tgt:FOLDER)
+
+## (Unit) Testing
+
+### Activate testing
+
+Activate testing support for [ctest](https://cmake.org/cmake/help/latest/manual/ctest.1.html) via [enable_testing](https://cmake.org/cmake/help/latest/command/enable_testing.html)
+
+### Adding a test
+
+Test programs are normal executable created via [add_executable](https://cmake.org/cmake/help/latest/command/add_executable.html).
+
+For that cmake knows an executable is a test it has to be registered as such. This is done via the [add_test](https://cmake.org/cmake/help/latest/command/add_test.html) command.
+
+### Setting test properties
+
+It is possible to add properties to a test, these are set via the [set_tests_properties](https://cmake.org/cmake/help/v3.0/command/set_tests_properties.html) command.
+
+* `WILL_FAIL` true tells cmake that a test is expected to fail
+* `TIMEOUT` limits the test runtime to the number of seconds specified. 
+
+### Example
+
+```cmake
+enable_testing()
+add_executable(mytest testcode1.cpp testcode2.cpp)
+add_test(NAME myapp_mytest COMMAND mytest)
+set_tests_properties(myapp_mytest TIMEOUT 1)
+```
+
+### Running tests
+
+If testing is enabled and at least one test has ben registered there is now a `test` target available, which can be invoked via `make test` in the build directory.
+
+Alternative, running directly `ctest` in the build directory is also a possibility.
+
+If there are multiple test binaries in a project it is possible to execute them in parallel.
+This works by the `-j` (jobs) command line switch.   
+`ctest -j8` in case of running ctest, `make test ARGS=-j8` to pass the switch via make test to ctest. 
+
+
