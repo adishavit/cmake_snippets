@@ -75,6 +75,19 @@ set_property(TARGET my_app PROPERTY FOLDER "utils")
 ```
 > [`USE_FOLDERS`](https://cmake.org/cmake/help/latest/prop_gbl/USE_FOLDERS.html), [`FOLDER`](https://cmake.org/cmake/help/latest/prop_tgt/FOLDER.html#prop_tgt:FOLDER)
 
+## Add Build Option
+Adds a CMake togglable variable that will also appear in cmake-gui, for conditional build settings.  
+If the variable is set via the command line or the GUI the default initial value will be ignored:
+
+```cmake
+option(ENABLE_PYTHON_BINDINGS "Build Python bindings" OFF)    # Adds option, defaults to OFF
+
+if(ENABLE_PYTHON_BINDINGS)                            
+    add_subdirectory(external_libs/pybind11)
+endif(ENABLE_PYTHON_BINDINGS)
+```
+> [option()](https://cmake.org/cmake/help/latest/command/option.html)
+
 ## (Unit) Testing
 
 ### Activate testing
