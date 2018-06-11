@@ -80,12 +80,15 @@ Adds a CMake togglable variable that will also appear in cmake-gui, for conditio
 If the variable is set via the command line or the GUI the default initial value will be ignored:
 
 ```cmake
-option(ENABLE_PYTHON_BINDINGS "Build Python bindings" OFF)    # Adds option, defaults to OFF
+option(ENABLE_PYTHON_BINDINGS "Build Python bindings" OFF)    # Adds option, sets default to OFF
 
 if(ENABLE_PYTHON_BINDINGS)                            
     add_subdirectory(external_libs/pybind11)
 endif(ENABLE_PYTHON_BINDINGS)
 ```
+This will create a toggleable check box in `cmake-gui`.  
+To toggle from the command line use `cmake ... -DENABLE_PYTHON_BINDINGS=ON`.  
+
 > [option()](https://cmake.org/cmake/help/latest/command/option.html)
 
 ## (Unit) Testing
