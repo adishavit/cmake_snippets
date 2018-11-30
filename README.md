@@ -84,7 +84,7 @@ option(ENABLE_PYTHON_BINDINGS "Build Python bindings" OFF)    # Adds option, set
 
 if(ENABLE_PYTHON_BINDINGS)                            
     add_subdirectory(external_libs/pybind11)
-endif(ENABLE_PYTHON_BINDINGS)
+endif()
 ```
 This will create a toggleable check box in `cmake-gui`.  
 To toggle from the command line use `cmake ... -DENABLE_PYTHON_BINDINGS=ON`.  
