@@ -129,4 +129,26 @@ If there are multiple test binaries in a project it is possible to execute them 
 This works by the `-j` (jobs) command line switch.   
 `ctest -j8` in case of running ctest, `make test ARGS=-j8` to pass the switch via make test to ctest. 
 
+### Providing Test Data Paths at Build Time
+Sometimes we cannot generate the data for the tests at run time and need to load it from some folder.
+We can do this by creating a private build preprocessor variable for our unit test app.
 
+In our `CMakeLists.txt` we add the path location in the repo (or any such similar info):  
+```cmake
+target_compile_definitions(unit_tests PRIVATE TEST_DATA_DIR=${PROJECT_SOURCE_DIR}/test_data)
+```
+
+and in our unit test source code we can use this flag as follows:
+
+```cpp
+#ifndef TEST_DATA_DIR
+#error "Must specify test data directory path in TEST_DATA_DIR."
+#else
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+constexpr const char* testDataFolder = TOSTRING(TEST_DATA_DIR);
+#undef TOSTRING
+#undef STRINGIFY
+#endif```
+
+The constexpr (global) variable `testDataFolder` will hold the path to use at build time.
