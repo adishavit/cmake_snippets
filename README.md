@@ -149,6 +149,18 @@ and in our unit test source code we can use this flag as follows:
 constexpr const char* testDataFolder = TOSTRING(TEST_DATA_DIR);
 #undef TOSTRING
 #undef STRINGIFY
-#endif```
+#endif
+```
 
 The constexpr (global) variable `testDataFolder` will hold the path to use at build time.
+
+
+## Profiling
+If you are using MSVC you can use a generator expression to add `/PROFILE` to the link options for your target if `RelWithDebInfo` is the target.
+```cmake
+if (MSVC) 
+  target_link_options(my_target PRIVATE $<$<CONFIG:RELWITHDEBINFO>:/PROFILE>)
+endif()
+```
+Note: `target_link_options` is from 3.13, you can use `target_link_libraries` if you're on an old version.  
+HT: [@TartanLlama](https://stackoverflow.com/a/54347917/135862)
